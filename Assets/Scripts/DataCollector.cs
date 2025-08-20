@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Xml;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Основной класс для сбора и обработки пользовательских данных
@@ -333,7 +334,6 @@ public class DataCollector : MonoBehaviour
       return;
     }
 
-    SaveUserData();
     ShowSummary();
   }
 
@@ -494,33 +494,6 @@ public class DataCollector : MonoBehaviour
   }
 
   /// <summary>
-  /// Загружает данные пользователя из PlayerPrefs
-  /// </summary>
-  private void LoadUserData()
-  {
-    if (PlayerPrefs.HasKey("UserName"))
-      userData.Name = PlayerPrefs.GetString("UserName");
-
-    if (PlayerPrefs.HasKey("Gender"))
-      userData.Gender = PlayerPrefs.GetString("Gender");
-
-    if (PlayerPrefs.HasKey("BirthDate"))
-      userData.BirthDate = DateTime.Parse(PlayerPrefs.GetString("BirthDate"));
-
-    if (PlayerPrefs.HasKey("BirthTime"))
-      userData.BirthTime = DateTime.Parse(PlayerPrefs.GetString("BirthTime"));
-
-    if (PlayerPrefs.HasKey("BirthCity"))
-      userData.BirthCity = PlayerPrefs.GetString("BirthCity");
-
-    if (PlayerPrefs.HasKey("Latitude"))
-      userData.Latitude = PlayerPrefs.GetFloat("Latitude");
-
-    if (PlayerPrefs.HasKey("Longitude"))
-      userData.Longitude = PlayerPrefs.GetFloat("Longitude");
-  }
-
-  /// <summary>
   /// Заполняет поля ввода сохраненными данными
   /// </summary>
   private void FillFormWithSavedData()
@@ -559,10 +532,8 @@ public class DataCollector : MonoBehaviour
   /// </summary>
   public void OnEditButtonClick()
   {
-    LoadUserData();
-
     FillFormWithSavedData();
-    
+
     ShowPanel(namePanel);
   }
 
@@ -571,6 +542,7 @@ public class DataCollector : MonoBehaviour
   /// </summary>
   public void OnConfirmButtonClick()
   {
+    SaveUserData();
     ShowPanel(successPanel);
   }
 

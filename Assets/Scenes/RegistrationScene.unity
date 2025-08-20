@@ -760,6 +760,8 @@ MonoBehaviour:
   editButton: {fileID: 1324422387}
   confirmButton: {fileID: 649870017}
   successText: {fileID: 605692678}
+  spriteMan: {fileID: 21300000, guid: 2992f4ea32f8a5b43a238d6c04cc1889, type: 3}
+  spriteWoman: {fileID: 21300000, guid: 3580b04170cafa248a8d0a50180805df, type: 3}
 --- !u!1001 &464034965
 PrefabInstance:
   m_ObjectHideFlags: 0
