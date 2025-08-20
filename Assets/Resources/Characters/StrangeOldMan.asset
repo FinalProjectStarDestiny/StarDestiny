@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: StrangeOldMan
   m_EditorClassIdentifier: 
   characterID: oldster
-  displayName: "\u0421\u0442\u0440\u0430\u043D\u043D\u044B\u0439 \u0441\u0442\u0430\u0440\u0438\u043A"
-  sprite: {fileID: 21300000, guid: f4aa9a443c024e645a099de083b61eac, type: 3}
+  displayName: "\u0421\u0442\u0430\u0440\u0438\u043A"
+  sprite: {fileID: 21300000, guid: 7e88b0c443895e74f9788ad3dc9497cc, type: 3}
+  objectType: 0

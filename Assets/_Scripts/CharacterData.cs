@@ -1,13 +1,30 @@
 using UnityEngine;
 using static TMPro.Examples.TMP_ExampleScript_01;
 
-// Хранит данные персонажа (только ID, имя и спрайт)
+/// <summary>
+/// Контейнер для данных о персонаже.
+/// </summary>
 [CreateAssetMenu(fileName = "Char_", menuName = "Visual Novel/Character Data")]
 public class CharacterData : ScriptableObject
 {
-    public string characterID;  // Уникальный идентификатор персонажа (например "hero")
-    public string displayName;  // Имя для отображения в игре
-    public Sprite sprite;       // Спрайт персонажа (одно изображение на все случаи)
+    /// <summary>
+    /// Уникальный ID персонажа.
+    /// </summary>
+    public string characterID;
+
+    /// <summary>
+    /// Имя персонажа, отображаемое на экране.
+    /// </summary>
+    public string displayName;
+
+    /// <summary>
+    /// Изображение персонажа.
+    /// </summary>
+    public Sprite sprite;
+
+    /// <summary>
+    /// Тип объекта.
+    /// </summary>
     public ObjectType objectType = ObjectType.Character;
 }
 

@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-// Хранит данные всей главы (пролога)
+/// <summary>
+/// Контейнер для данных пролога.
+/// </summary>
 [CreateAssetMenu(fileName = "Chapter_", menuName = "Visual Novel/Chapter Data")]
 public class ChapterData : ScriptableObject
 {
-    public Sprite background;   // Фон для всей главы
+    /// <summary>
+    /// Изначальный фон главы.
+    /// </summary>
+    public Sprite background;
+
+    /// <summary>
+    /// Cписок реплик диалога.
+    /// </summary>
     public List<DialogueLine> lines = new List<DialogueLine>(); // Все реплики главы
 }

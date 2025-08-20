@@ -2,13 +2,35 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Система затемнения/осветления экрана и плавной смены фона.
+/// </summary>
 public class FadeSystem : MonoBehaviour
 {
+    #region Поля и свойства
+
+    /// <summary>
+    /// Глобальный доступ к экземпляру.
+    /// </summary>
     public static FadeSystem Instance { get; private set; }
 
+    /// <summary>
+    /// UI-панель для затемнения.
+    /// </summary>
     [SerializeField] private Image fadePanel;
+
+    /// <summary>
+    /// Длительность анимации.
+    /// </summary>
     [SerializeField] private float fadeDuration = 1.5f;
 
+    #endregion
+
+    #region Методы
+
+    /// <summary>
+    /// Инициализирует singleton
+    /// </summary>
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -20,13 +42,15 @@ public class FadeSystem : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Скрываем панель при старте
         if (fadePanel != null)
             fadePanel.gameObject.SetActive(false);
     }
 
-    // Затемнение экрана
-    public IEnumerator FadeOut()
+    /// <summary>
+    /// Плавное затемнение экрана.
+    /// </summary>
+    /// <param name="onFadeComplete">callback-функция, которая будет вызвана после завершения затемнения.</param>
+    public IEnumerator FadeOut(System.Action onFadeComplete = null)
     {
         fadePanel.gameObject.SetActive(true);
         fadePanel.color = new Color(0, 0, 0, 0);
@@ -41,9 +65,13 @@ public class FadeSystem : MonoBehaviour
         }
 
         fadePanel.color = Color.black;
+        onFadeComplete?.Invoke();
     }
 
-    // Осветление экрана
+    /// <summary>
+    /// Плавное осветление экрана.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator FadeIn()
     {
         fadePanel.gameObject.SetActive(true);
@@ -62,17 +90,45 @@ public class FadeSystem : MonoBehaviour
         fadePanel.gameObject.SetActive(false);
     }
 
-    // Мгновенное затемнение
+    /// <summary>
+    /// Плавная смена фона с затемнением.
+    /// </summary>
+    /// <param name="backgroundImage">Компонент, в котором нужно сменить фон.</param>
+    /// <param name="newBackground">Новый спрайт для фона.</param>
+    /// <param name="onChangeAction">Действие, выполняемое во время смены фона.</param>
+    /// <param name="duration">Длительность анимации смены фона.</param>
+    /// <returns></returns>
+    public IEnumerator FadeBackground(Image backgroundImage, Sprite newBackground, System.Action onChangeAction = null, float duration = 1.0f)
+    {
+        if (backgroundImage == null || newBackground == null) yield break;
+
+        yield return FadeOut(() =>
+        {
+            backgroundImage.sprite = newBackground;
+
+            onChangeAction?.Invoke();
+        });
+
+        yield return FadeIn();
+    }
+
+    /// <summary>
+    /// Мгновенное затемнение.
+    /// </summary>
     public void InstantBlack()
     {
         fadePanel.gameObject.SetActive(true);
         fadePanel.color = Color.black;
     }
 
-    // Мгновенное осветление
+    /// <summary>
+    /// Мгновенное осветление.
+    /// </summary>
     public void InstantClear()
     {
         fadePanel.color = new Color(0, 0, 0, 0);
         fadePanel.gameObject.SetActive(false);
     }
+
+    #endregion
 }
