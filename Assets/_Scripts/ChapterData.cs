@@ -7,13 +7,13 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "Chapter_", menuName = "Visual Novel/Chapter Data")]
 public class ChapterData : ScriptableObject
 {
-    /// <summary>
-    /// Изначальный фон главы.
-    /// </summary>
-    public Sprite background;
+  /// <summary>
+  /// Изначальный фон главы.
+  /// </summary>
+  public Sprite background;
 
-    /// <summary>
-    /// Cписок реплик диалога.
-    /// </summary>
-    public List<DialogueLine> lines = new List<DialogueLine>(); // Все реплики главы
+  /// <summary>
+  /// Cписок реплик диалога.
+  /// </summary>
+  public List<DialogueLine> lines = new List<DialogueLine>(); // Все реплики главы
 }
