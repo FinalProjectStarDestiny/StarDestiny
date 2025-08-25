@@ -19,7 +19,7 @@ public class VedicAstroAPIManager : MonoBehaviour
   /// Ключ API для аутентификации запросов. 
   /// Необходим для доступа к функционалу API.
   /// </summary>
-  private string apiKey = "9964ad6c-5175-5aff-8a88-cb624cf67846";
+  private string apiKey = "";
 
   [Header("Debug")]
   public bool debugMode = true;
