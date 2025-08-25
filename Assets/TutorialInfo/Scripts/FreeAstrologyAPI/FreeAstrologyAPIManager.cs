@@ -21,7 +21,7 @@ public class FreeAstrologyAPIManager : MonoBehaviour
   /// Ключ API для аутентификации запросов. 
   /// Необходимо для доступа к функционалу API.
   /// </summary>
-  private string apiKey = "POgggZ2PCw1l3DxdPthF35TtcxtgGlNT6VnzzqMI";
+  private string apiKey = "";
 
   #endregion
 
