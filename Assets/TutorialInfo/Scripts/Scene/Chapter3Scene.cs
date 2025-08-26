@@ -66,6 +66,18 @@ public class Chapter3Scene : BaseChapterScene
   /// </summary>
   [SerializeField] private GameObject tapToRevealText;
 
+  [Header("Music")]
+
+  /// <summary>
+  /// Звук перелистывания карт.
+  /// </summary>
+  [SerializeField] private AudioClip tarotMusic;
+
+  /// <summary>
+  /// Базовая музыка главы.
+  /// </summary>
+  [SerializeField] private AudioClip baseChapterMusic;
+
   /// <summary>
   /// Флаг, указывающий, показывается ли результат таро в текущий момент.
   /// </summary>
@@ -116,6 +128,8 @@ public class Chapter3Scene : BaseChapterScene
       {
         tapToDrawText.SetActive(false);
       }
+
+      AudioManager.Instance.ChangeMusic(tarotMusic);
 
       if (loadingIndicator != null)
       {
@@ -185,6 +199,11 @@ public class Chapter3Scene : BaseChapterScene
       }
 
       currentLine = chapterData.lines[currentLineIndex];
+
+      if (currentLine.audioChange != null)
+      {
+        AudioManager.Instance.ChangeMusic(currentLine.audioChange);
+      }
 
       if (currentLineIndex == tarotReadingReplicaIndex)
       {
@@ -330,6 +349,8 @@ public class Chapter3Scene : BaseChapterScene
     {
       loadingIndicator.SetActive(false);
     }
+
+    AudioManager.Instance.ChangeMusic(baseChapterMusic);
 
     if (!string.IsNullOrEmpty(error) || predictionData == null)
     {

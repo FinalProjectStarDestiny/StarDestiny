@@ -27,6 +27,11 @@ public class DialogueLine
   public Sprite backgroundChange;
 
   /// <summary>
+  /// Опциональная смена музыки при этой реплике.
+  /// </summary>
+  public AudioClip audioChange;
+
+  /// <summary>
   /// Состояние отображения персонажа.
   /// </summary>
   public bool showCharacter = true;

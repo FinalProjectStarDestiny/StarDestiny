@@ -245,6 +245,12 @@ public class BaseChapterScene : MonoBehaviour
     while (currentLineIndex < chapterData.lines.Count)
     {
       currentLine = chapterData.lines[currentLineIndex];
+
+      if (currentLine.audioChange != null)
+      {
+        AudioManager.Instance.ChangeMusic(currentLine.audioChange);
+      }
+
       yield return ShowDialogueLine(currentLine);
 
       waitingForClick = true;

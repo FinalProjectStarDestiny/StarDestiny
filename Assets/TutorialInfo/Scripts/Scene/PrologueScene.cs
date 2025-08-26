@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// Система диалогов, обрабатывающая показ реплик, персонажей и фонов для пролога.

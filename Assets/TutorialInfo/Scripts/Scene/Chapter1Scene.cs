@@ -134,6 +134,11 @@ public class Chapter1Scene : BaseChapterScene
 
       currentLine = chapterData.lines[currentLineIndex];
 
+      if (currentLine.audioChange != null)
+      {
+        AudioManager.Instance.ChangeMusic(currentLine.audioChange);
+      }
+
       if (currentLineIndex == houseNumberQuestionReplicaIndex)
       {
         yield return ShowDialogueLine(currentLine);

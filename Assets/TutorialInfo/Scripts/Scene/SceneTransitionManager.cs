@@ -197,8 +197,8 @@ namespace Assets.TutorialInfo.Scripts
     {
       if (fadePanel == null) return;
 
-      fadePanel.gameObject.SetActive(true);
       fadePanel.color = Color.black;
+      fadePanel.gameObject.SetActive(true);
     }
 
     /// <summary>

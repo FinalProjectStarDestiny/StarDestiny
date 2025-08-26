@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class NewEmptyCSharpScript : BaseChapterScene
+/// <summary>
+/// Система диалогов, обрабатывающая показ реплик, персонажей и фонов для эпилога.
+/// </summary>
+public class EpilogueScene: BaseChapterScene
 {
   protected override void Start()
   {

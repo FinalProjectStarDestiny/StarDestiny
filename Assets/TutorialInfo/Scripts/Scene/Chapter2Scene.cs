@@ -136,6 +136,11 @@ public class Chapter2Scene : BaseChapterScene
 
       currentLine = chapterData.lines[currentLineIndex];
 
+      if (currentLine.audioChange != null)
+      {
+        AudioManager.Instance.ChangeMusic(currentLine.audioChange);
+      }
+
       if (currentLineIndex == lifePathNumberResponseReplicaIndex)
       {
         yield return ShowLifePathNumberResponse("oldster", lifePathNumberResponseToShow);

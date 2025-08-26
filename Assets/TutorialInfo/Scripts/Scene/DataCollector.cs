@@ -21,7 +21,7 @@ namespace UnityEngine
     #region Константы
 
     /// <summary>Имя для доступа к GeoNames API</summary>
-    private const string GEONAMES_USERNAME = "StarDestiny";
+    private const string GEONAMES_USERNAME = "";
 
     #endregion
 
@@ -62,6 +62,9 @@ namespace UnityEngine
     [Header("UI Panels")]
 
     /// <summary>Панель для ввода имени</summary>
+    public GameObject startPanel;
+
+    /// <summary>Панель для ввода имени</summary>
     public GameObject namePanel;
 
     /// <summary>Панель для выбора пола</summary>
@@ -84,6 +87,11 @@ namespace UnityEngine
 
     /// <summary>Панель успешного сохранения</summary>
     public GameObject successPanel;
+
+    [Header("Start")]
+
+    /// <summary>Кнопка начала</summary>
+    public Button startButton;
 
     [Header("Name Input")]
 
@@ -167,11 +175,16 @@ namespace UnityEngine
     /// <summary>Флаг для предотвращения рекурсии при вводе даты и времени</summary>
     private bool isFormatting = false;
 
-    /// <summary>Минимальлная временная зон/summary>
+    /// <summary>Минимальлная временная зона</summary>
     private float minTimezone = -12f;
 
-    /// <summary>Максимальная временная зон/summary>
+    /// <summary>Максимальная временная зона</summary>
     private float maxTimezone = 14f;
+
+    [Header("Audio")]
+
+    /// <summary>Компонент AudioSource для воспроизведения музыки/// </summary>
+    [SerializeField] private AudioClip registrationMusic;
 
     #endregion
 
@@ -613,6 +626,25 @@ namespace UnityEngine
     }
 
     /// <summary>
+    /// Корутина для плавного перехода к панели имени
+    /// </summary>
+    private IEnumerator TransitionToNamePanel()
+    {
+      yield return SceneTransitionManager.Instance.FadeOut();
+      ShowPanel(namePanel);
+      yield return new WaitForEndOfFrame();
+      yield return SceneTransitionManager.Instance.FadeIn();
+    }
+
+    /// <summary>
+    /// Обрабатывает нажатие кнопки старта
+    /// </summary>
+    public void OnStartButtonClick()
+    {
+      StartCoroutine(TransitionToNamePanel());
+    }
+
+    /// <summary>
     /// Обрабатывает нажатие кнопки редактирования
     /// </summary>
     public void OnEditButtonClick()
@@ -645,6 +677,7 @@ namespace UnityEngine
     /// <param name="panel">Панель для отображения</param>
     private void ShowPanel(GameObject panel)
     {
+      startPanel.SetActive(panel == startPanel);
       namePanel.SetActive(panel == namePanel);
       genderPanel.SetActive(panel == genderPanel);
       datePanel.SetActive(panel == datePanel);
@@ -691,6 +724,18 @@ namespace UnityEngine
       }
     }
 
+    /// <summary>
+    /// Корутина для первоначального появления интерфейса
+    /// </summary>
+    private IEnumerator InitFadeIn()
+    {
+      SceneTransitionManager.Instance.InstantBlack();
+
+      yield return new WaitForEndOfFrame();
+
+      yield return SceneTransitionManager.Instance.FadeIn();
+    }
+
     #endregion
 
     #region Базовый класс (MonoBehaviour)
@@ -700,17 +745,22 @@ namespace UnityEngine
     /// </summary>
     void Start()
     {
-      ShowPanel(namePanel);
-      dateInput.onValueChanged.AddListener(FormatDateInput);
-      timeInput.onValueChanged.AddListener(FormatTimeInput);
-      timezoneInput.onValueChanged.AddListener(FormatTimezoneInput);
-
       if (SceneTransitionManager.Instance == null)
       {
         GameObject transitionManagerObj = new GameObject("SceneTransitionManager");
         transitionManagerObj.AddComponent<SceneTransitionManager>();
         DontDestroyOnLoad(transitionManagerObj);
       }
+
+      AudioManager.Instance.PlayMusic(registrationMusic);
+
+      ShowPanel(startPanel);
+
+      StartCoroutine(InitFadeIn());
+
+      dateInput.onValueChanged.AddListener(FormatDateInput);
+      timeInput.onValueChanged.AddListener(FormatTimeInput);
+      timezoneInput.onValueChanged.AddListener(FormatTimezoneInput);
 
       if (cityListContainer.parent.parent.TryGetComponent<ScrollRect>(out var scrollRect))
       {
@@ -722,6 +772,9 @@ namespace UnityEngine
 
         scrollRect.content = cityListContainer.GetComponent<RectTransform>();
       }
+
+      if (startButton != null)
+        startButton.onClick.AddListener(OnStartButtonClick);
 
       if (editButton != null)
         editButton.onClick.AddListener(OnEditButtonClick);
